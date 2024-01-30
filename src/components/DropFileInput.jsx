@@ -83,7 +83,7 @@ const DropFileInput = (props) => {
         >
           <div className="flex justify-center gap-2">
             <img src={uploadImg} alt="upload svg" />
-            <p>Sign In</p>
+            <p>Upload</p>
           </div>
         </button>
       </div>
