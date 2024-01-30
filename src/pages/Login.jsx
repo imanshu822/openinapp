@@ -24,9 +24,11 @@ const Login = () => {
       .then((data) => {
         const profilePic = data.user.photoURL;
         const email = data.user.email;
+        const userName = data.user.displayName;
         setValue(data.user.email);
         localStorage.setItem("email", email);
         localStorage.setItem("pic", profilePic);
+        localStorage.setItem("userName", userName);
         localStorage.setItem("authenticated", true);
         setauthenticated(true);
         navigate("/home");

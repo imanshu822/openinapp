@@ -12,6 +12,12 @@ const Home = () => {
   const [detailsExist, setDetailsExist] = useState(false);
   const [isBasicSelected, setIsBasicSelected] = useState(false);
 
+  const profileImg = localStorage.getItem("pic");
+
+  const userName = localStorage.getItem("userName");
+
+  console.log(userName);
+
   const openProfileModal = async () => {
     setIsBasicSelected(true);
     setIsPopupOpen(true);
@@ -37,7 +43,7 @@ const Home = () => {
         >
           <SideBar />
           <div className="flex flex-col  w-full gap-2 md:gap-4">
-            <Header />
+            <Header pic={profileImg} name={userName} />
             <Uploadbox />
           </div>
         </div>
