@@ -2,29 +2,14 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../components/SideBar";
 import Header from "../components/Header";
 import { Navigate } from "react-router-dom";
-import ProfileDetails from "../components/ProfileDetails";
-import Uploadbox from "../components/Uploadbox";
 // import UploadHistory from "../components/UploadHistory";
-import UploadedFilesTable from "../components/UploadedFilesTable";
 import DropFileInput from "../components/DropFileInput";
 const Home = () => {
   const [authenticated, setauthenticated] = useState(false);
   const [check, setCheck] = useState(true);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [user, setUser] = useState({});
-  const [detailsExist, setDetailsExist] = useState(false);
-  const [isBasicSelected, setIsBasicSelected] = useState(false);
-
   const profileImg = localStorage.getItem("pic");
-
   const userName = localStorage.getItem("userName");
-
   console.log(userName);
-
-  const openProfileModal = async () => {
-    setIsBasicSelected(true);
-    setIsPopupOpen(true);
-  };
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("authenticated");
@@ -39,26 +24,13 @@ const Home = () => {
   } else {
     return (
       <>
-        <div
-          className={`relative flex flex-col w-full sm:flex-row justify-between gap-4 lg:gap-6  bg-[#FAFAFB] ${
-            isPopupOpen ? "opacity-70" : ""
-          }`}
-        >
+        <div className="relative flex flex-col w-full sm:flex-row justify-between gap-4 lg:gap-6  bg-[#FAFAFB]">
           <SideBar />
           <div className="flex flex-col  w-full gap-2 md:gap-4">
             <Header pic={profileImg} name={userName} />
             <DropFileInput />
           </div>
         </div>
-
-        <ProfileDetails
-          isPopupOpen={isPopupOpen}
-          setIsPopupOpen={setIsPopupOpen}
-          setUser={setUser}
-          setDetailsExist={setDetailsExist}
-          isBasicSelected={isBasicSelected}
-          setIsBasicSelected={setIsBasicSelected}
-        />
       </>
     );
   }

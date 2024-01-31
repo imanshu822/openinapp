@@ -27,7 +27,7 @@ const UploadedFilesTable = ({ files }) => {
             <>
               <tr key={index}>
                 <td>
-                  <p className="rounded-l-md ml-4 pl-4 py-4 bg-white">
+                  <p className="rounded-l-md ml-4 pl-6 py-4 bg-white">
                     {index + 1}
                   </p>
                 </td>

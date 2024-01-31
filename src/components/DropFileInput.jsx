@@ -18,8 +18,14 @@ const DropFileInput = ({ onFileChange }) => {
 
   const onFileDrop = (e) => {
     const newFile = e.target.files[0];
-    if (newFile) {
+    if (
+      newFile &&
+      newFile.type ===
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    ) {
       setFileList([...fileList, newFile]);
+    } else {
+      alert("Please select an Excel file.");
     }
   };
 
