@@ -1,41 +1,48 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
+import UploadedFilesTable from "./UploadedFilesTable";
 
 import "./drop-file-input.css";
 
-import { ImageConfig } from "../config/ImageConfig";
 import excelImg from "../assets/Microsoft_Office_Excel_(2019–present) 1.png";
 import uploadImg from "../assets/Icon.svg";
-const DropFileInput = (props) => {
-  const wrapperRef = useRef(null);
 
+const DropFileInput = ({ onFileChange }) => {
+  const wrapperRef = useRef(null);
   const [fileList, setFileList] = useState([]);
+  const [uploadedFiles, setUploadedFiles] = useState([]);
 
   const onDragEnter = () => wrapperRef.current.classList.add("dragover");
-
   const onDragLeave = () => wrapperRef.current.classList.remove("dragover");
-
   const onDrop = () => wrapperRef.current.classList.remove("dragover");
 
   const onFileDrop = (e) => {
     const newFile = e.target.files[0];
     if (newFile) {
-      const updatedList = [...fileList, newFile];
-      setFileList(updatedList);
-      // props.onFileChange(updatedList);
+      setFileList([...fileList, newFile]);
     }
   };
 
   const fileRemove = (file) => {
-    const updatedList = [...fileList];
-    updatedList.splice(fileList.indexOf(file), 1);
+    const updatedList = fileList.filter((item) => item !== file);
     setFileList(updatedList);
-    // props.onFileChange(updatedList);
+  };
+
+  const uploadFiles = () => {
+    const updatedUploadedFiles = [
+      ...uploadedFiles,
+      ...fileList.map((file) => ({
+        name: file.name,
+        prefix: file.name.split(".")[0], // Assuming prefix is the part before the first dot in the filename
+      })),
+    ];
+    setUploadedFiles(updatedUploadedFiles);
+    setFileList([]); // Clear fileList after uploading
   };
 
   return (
-    <>
-      <div className="w-[596px] mx-auto mt-[140px] h-[367px] bg-white flex flex-col p-4 gap-4 justify-center items-center  rounded-md">
+    <div className="w-full h-min-screen overflow-y-auto">
+      <div className="w-[596px] mx-auto mt-[140px] h-[367px] bg-white flex flex-col p-4 gap-4 justify-center items-center rounded-md">
         <div
           ref={wrapperRef}
           className={`w-full z-0 h-full flex flex-col justify-center items-center ${
@@ -73,21 +80,25 @@ const DropFileInput = (props) => {
                 {" "}
                 browse
               </a>
-              <input type="file" value="" onChange={onFileDrop} />
+              <input type="file" onChange={onFileDrop} />
             </div>
           )}
         </div>
         <button
-          // className="w-full h-1/5 bg-[#605BFF] border-2 rounded-md text-white"
-          className="bg-[#605BFF]  h-1/5 rounded-xl w-full font-bold text-white "
+          onClick={uploadFiles}
+          className="bg-[#605BFF] h-1/5 rounded-xl w-full font-bold text-white"
+          disabled={fileList.length === 0}
         >
           <div className="flex justify-center gap-2">
             <img src={uploadImg} alt="upload svg" />
             <p>Upload</p>
           </div>
         </button>
+
+        {/* Display uploaded files in the table */}
       </div>
-    </>
+      <UploadedFilesTable files={uploadedFiles} />
+    </div>
   );
 };
 

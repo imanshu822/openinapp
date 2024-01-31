@@ -4,6 +4,9 @@ import Header from "../components/Header";
 import { Navigate } from "react-router-dom";
 import ProfileDetails from "../components/ProfileDetails";
 import Uploadbox from "../components/Uploadbox";
+// import UploadHistory from "../components/UploadHistory";
+import UploadedFilesTable from "../components/UploadedFilesTable";
+import DropFileInput from "../components/DropFileInput";
 const Home = () => {
   const [authenticated, setauthenticated] = useState(false);
   const [check, setCheck] = useState(true);
@@ -44,7 +47,7 @@ const Home = () => {
           <SideBar />
           <div className="flex flex-col  w-full gap-2 md:gap-4">
             <Header pic={profileImg} name={userName} />
-            <Uploadbox />
+            <DropFileInput />
           </div>
         </div>
 
