@@ -48,7 +48,7 @@ const DropFileInput = ({ onFileChange }) => {
 
   return (
     <div className="w-full h-min-screen overflow-y-auto">
-      <div className="w-[596px] mx-auto mt-[140px] h-[367px] bg-white flex flex-col p-4 gap-4 justify-center items-center rounded-md">
+      <div className="w-[596px] mx-auto mt-[50px] h-[367px] bg-white flex flex-col p-4 gap-4 justify-center items-center rounded-md">
         <div
           ref={wrapperRef}
           className={`w-full z-0 h-full flex flex-col justify-center items-center ${
