@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import UploadedFilesTable from "./UploadedFilesTable";
 
 import "./drop-file-input.css";
-
 import excelImg from "../assets/Microsoft_Office_Excel_(2019–present) 1.png";
 import uploadImg from "../assets/Icon.svg";
 
@@ -11,6 +10,7 @@ const DropFileInput = ({ onFileChange }) => {
   const wrapperRef = useRef(null);
   const [fileList, setFileList] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [showUploadedFiles, setShowUploadedFiles] = useState(false); // State to control the visibility of UploadedFilesTable
 
   const onDragEnter = () => wrapperRef.current.classList.add("dragover");
   const onDragLeave = () => wrapperRef.current.classList.remove("dragover");
@@ -44,6 +44,7 @@ const DropFileInput = ({ onFileChange }) => {
     ];
     setUploadedFiles(updatedUploadedFiles);
     setFileList([]); // Clear fileList after uploading
+    setShowUploadedFiles(true); // Show the UploadedFilesTable
   };
 
   return (
@@ -101,9 +102,9 @@ const DropFileInput = ({ onFileChange }) => {
           </div>
         </button>
 
-        {/* Display uploaded files in the table */}
+        {/* Display UploadedFilesTable only when showUploadedFiles is true */}
       </div>
-      <UploadedFilesTable files={uploadedFiles} />
+      {showUploadedFiles && <UploadedFilesTable files={uploadedFiles} />}
     </div>
   );
 };
